@@ -3,18 +3,14 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 import pygame
-from sys import exit
 from background import Background
 from rod import Rod
 from disk import Disk
 from cursor import Cursor
 
-DISK_COLORS = ["#76428a", "#639bff", "#99e550", "#6abe30", "#fbf236", "#e58c4f", "#e55757"]
+DISK_COLORS = ["#ffffff", "#639bff", "#99e550", "#6abe30", "#fbf236", "#e58c4f", "#e55757"]
 DISK_HEIGHT = 15
 DISK_RADII = [150, 130, 110, 90, 70, 50, 30]
-SCREEN_WIDTH = 0
-SCREEN_HEIGHT = 0
-LEVEL = 1
 
 class TowerOfHanoi:
     def __init__(self):
@@ -23,6 +19,7 @@ class TowerOfHanoi:
         pygame.display.set_caption('Tower Of Hanoi')
         self.clock = pygame.time.Clock()
         self.disks = []
+        self.level = 1
     
     def load_level(self):
         self.screen.fill("white")
@@ -32,7 +29,7 @@ class TowerOfHanoi:
         self.source = Rod(200, 341)
         self.aux = Rod(400, 341)
         self.target = Rod(600, 341)
-        for i in range(7 - LEVEL, 7):
+        for i in range(7 - self.level, 7):
             self.disks.append(Disk(DISK_COLORS[i], DISK_RADII[i], DISK_HEIGHT))
             self.source.putOnTop(self.disks[-1])
         self.rods = [self.source, self.aux, self.target]
@@ -49,15 +46,14 @@ class TowerOfHanoi:
                     self.load_level()
 
     def won_state(self):
-        global LEVEL
         for event in self.py_events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     self.state = "instructions"
                     self.background.sprite.change_state(self.state)
-                    LEVEL += 1
-                    if LEVEL > 7:
-                        LEVEL = 1
+                    self.level += 1
+                    if self.level > 7:
+                        self.level = 1
 
         self.cursor.draw(self.screen)
         self.cursor.update()
@@ -70,7 +66,6 @@ class TowerOfHanoi:
 
 
     def running_state(self):
-        global LEVEL
         for event in self.py_events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -100,14 +95,13 @@ class TowerOfHanoi:
         for disk in self.disks:
             disk.draw(self.screen)
         
-        if(len(self.target.disks) == LEVEL):
+        if(len(self.target.disks) == self.level):
             self.state = "won"
             self.win_message = pygame.image.load('./assets/win.png').convert_alpha()
             self.win_rect = self.win_message.get_rect(center = (400, 200))
     
     # game states -> instructions (press space to move to running state), running (controls and restart), won (press space to return to home screen)
     def run(self):
-        global SCREEN_WIDTH, SCREEN_HEIGHT, LEVEL
         self.state = "instructions"
 
         self.screen = pygame.display.get_surface()
@@ -124,10 +118,7 @@ class TowerOfHanoi:
                 if event.type == pygame.QUIT:
                     self.is_running = False
                 elif event.type == pygame.VIDEORESIZE:
-                    SCREEN_WIDTH = event.size[0]
-                    SCREEN_HEIGHT = event.size[1]
-                    self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),pygame.RESIZABLE)
-                    # self.background.sprite.resize(SCREEN_WIDTH, SCREEN_HEIGHT)
+                    self.screen = pygame.display.set_mode((event.size[0], event.size[1]),pygame.RESIZABLE)
             
             self.screen.fill("white")
             self.background.draw(self.screen)
