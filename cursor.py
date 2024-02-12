@@ -27,12 +27,13 @@ class Cursor(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load('./assets/cursor.png')
         self.rect = self.image.get_rect(midbottom = (200, 85))
-    
-    def update(self):
-        pass
 
     def moveToRod(self, rod):
         self.rect.centerx = rod.mid
     
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        sw = screen.get_width()
+        sh = screen.get_height()
+        image = pygame.transform.scale(self.image, (self.image.get_width()/800 * sw, self.image.get_height()/400 * sh))
+        rect = image.get_rect(midbottom = (self.rect.centerx/800 * sw, self.rect.centery/400 * sh))
+        screen.blit(image, rect)

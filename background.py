@@ -34,10 +34,10 @@ class Background(pygame.sprite.Sprite):
             self.image = pygame.image.load('./assets/instructions-background.png')
         else:
             self.image = pygame.image.load('./assets/running-background.png')
-
-    def update(self):
-        pass
-
-    def resize(self, SCREEN_WIDTH, SCREEN_HEIGHT):
-        self.image = pygame.transform.scale(self.image, (SCREEN_WIDTH, SCREEN_HEIGHT))
-        self.rect = self.image.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
+    
+    def draw(self, screen):
+        sw = screen.get_width()
+        sh = screen.get_height()
+        image = pygame.transform.scale(self.image, (sw, sh))
+        rect = image.get_rect(topleft = (0, 0))
+        screen.blit(image, rect)

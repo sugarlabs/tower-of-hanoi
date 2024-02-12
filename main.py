@@ -29,6 +29,7 @@ from background import Background
 from rod import Rod
 from disk import Disk
 from cursor import Cursor
+from win_message import Win_message
 
 DISK_COLORS = ["#76428a", "#639bff", "#99e550", "#6abe30", "#fbf236", "#e58c4f", "#e55757"]
 DISK_HEIGHT = 15
@@ -78,12 +79,11 @@ class TowerOfHanoi:
                         self.level = 1
 
         self.cursor.draw(self.screen)
-        self.cursor.update()
 
         for disk in self.disks:
             disk.draw(self.screen)
             
-        self.screen.blit(self.win_message, self.win_rect)
+        self.win_message.draw(self.screen)
         
 
 
@@ -94,12 +94,12 @@ class TowerOfHanoi:
                     self.rodIndex = ((self.rodIndex - 1) + 3)%3
                     self.cursor.moveToRod(self.rods[self.rodIndex])
                     if self.diskInFocus:
-                        self.diskInFocus.rectangle.centerx = self.rods[self.rodIndex].mid
+                        self.diskInFocus.mid = self.rods[self.rodIndex].mid
                 elif event.key == pygame.K_RIGHT:
                     self.rodIndex = (self.rodIndex + 1)%3
                     self.cursor.moveToRod(self.rods[self.rodIndex])
                     if self.diskInFocus:
-                        self.diskInFocus.rectangle.centerx = self.rods[self.rodIndex].mid
+                        self.diskInFocus.mid = self.rods[self.rodIndex].mid
 
                 elif event.key == pygame.K_UP:
                     if not self.diskInFocus:
@@ -112,15 +112,12 @@ class TowerOfHanoi:
                     self.load_level()
         
         self.cursor.draw(self.screen)
-        self.cursor.update()
 
         for disk in self.disks:
             disk.draw(self.screen)
         
         if(len(self.target.disks) == self.level):
             self.state = "won"
-            self.win_message = pygame.image.load('./assets/win.png').convert_alpha()
-            self.win_rect = self.win_message.get_rect(center = (400, 200))
     
     # game states -> instructions (press space to move to running state), running (controls and restart), won (press space to return to home screen)
     def run(self):
@@ -130,6 +127,7 @@ class TowerOfHanoi:
         self.screen.fill("white")
         self.background = pygame.sprite.GroupSingle()
         self.background.add(Background(self.screen, self.state))
+        self.win_message = Win_message()
 
         self.is_running = True
         while self.is_running:
@@ -143,7 +141,7 @@ class TowerOfHanoi:
                     self.screen = pygame.display.set_mode((event.size[0], event.size[1]),pygame.RESIZABLE)
             
             self.screen.fill("white")
-            self.background.draw(self.screen)
+            self.background.sprite.draw(self.screen)
 
             if self.state == "running":
                 self.running_state()
