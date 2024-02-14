@@ -23,8 +23,17 @@
 import pygame
 
 class Win_message():
-    def __init__(self):
-        self.image = pygame.image.load('./assets/win.png').convert_alpha()
+    def __init__(self, level, moves):
+        if level < 7:
+            self.image = pygame.image.load('./assets/win.png').convert_alpha()
+        else:
+            self.image = pygame.image.load('./assets/game_win.png').convert_alpha()
+
+        text_font = pygame.font.Font(None, 18)
+        text = text_font.render("Moves Taken: " + str(moves), False, "#e58c4f")
+        text_rect = text.get_rect(center = (self.image.get_width()/2, 85))
+        self.image.blit(text, text_rect)
+        
         self.rect = self.image.get_rect(center = (400, 200))
     
     def draw(self, screen):

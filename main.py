@@ -45,6 +45,7 @@ class TowerOfHanoi:
         self.clock = pygame.time.Clock()
         self.disks = []
         self.level = 1
+        self.moves = 0
     
     def load_level(self):
         self.screen.fill("white")
@@ -76,15 +77,18 @@ class TowerOfHanoi:
                 if event.key == pygame.K_SPACE:
                     self.state = "instructions"
                     self.background.sprite.change_state(self.state)
+                    self.moves = 0
                     self.level += 1
                     if self.level > 7:
                         self.level = 1
+
 
         self.cursor.draw(self.screen)
 
         for disk in self.disks:
             disk.draw(self.screen)
             
+        
         self.win_message.draw(self.screen)
         
 
@@ -109,6 +113,7 @@ class TowerOfHanoi:
                 elif event.key == pygame.K_DOWN:
                     if self.diskInFocus and self.rods[self.rodIndex].putOnTop(self.diskInFocus):
                         self.diskInFocus = None
+                        self.moves += 1
                 
                 elif event.key == pygame.K_r:
                     self.load_level()
@@ -119,6 +124,7 @@ class TowerOfHanoi:
             disk.draw(self.screen)
         
         if(len(self.target.disks) == self.level):
+            self.win_message = Win_message(self.level, self.moves)
             self.state = "won"
     
     # game states -> instructions (press space to move to running state), running (controls and restart), won (press space to return to home screen)
@@ -129,7 +135,6 @@ class TowerOfHanoi:
         self.screen.fill("white")
         self.background = pygame.sprite.GroupSingle()
         self.background.add(Background(self.screen, self.state))
-        self.win_message = Win_message()
 
         self.is_running = True
         while self.is_running:
