@@ -24,6 +24,8 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+from sugar3.graphics.style import GRID_CELL_SIZE
+
 import pygame
 from background import Background
 from rod import Rod
@@ -138,7 +140,8 @@ class TowerOfHanoi:
                 if event.type == pygame.QUIT:
                     self.is_running = False
                 elif event.type == pygame.VIDEORESIZE:
-                    self.screen = pygame.display.set_mode((event.size[0], event.size[1]),pygame.RESIZABLE)
+                    self.screen = pygame.display.set_mode((event.size[0], event.size[1] - GRID_CELL_SIZE),pygame.RESIZABLE)
+                    break
             
             self.screen.fill("white")
             self.background.sprite.draw(self.screen)
