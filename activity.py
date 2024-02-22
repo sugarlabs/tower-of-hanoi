@@ -35,6 +35,11 @@ from sugar3.activity.widgets import StopButton, ActivityToolbarButton
 import sugargame.canvas
 import main
 
+DESCRIPTION = """Tower Of Hanoi is a mathematical puzzle game. The goal is to move the discs to the destination stack (rightmost).
+Rules of Tower Of Hanoi:-
+1) Only one disc can be moved at a time.
+2) Only the top disc of one stack can be transferred to the top of another stack or an empty rod.
+3) Larger discs cannot be stacked over smaller ones."""
 
 class TowerOfHanoiActivity(Activity):
 
@@ -42,7 +47,8 @@ class TowerOfHanoiActivity(Activity):
         Activity.__init__(self, handle)
 
         self.game = main.TowerOfHanoi()
-
+        self.metadata['description'] = DESCRIPTION
+        
         self.build_toolbar()
         self._pygamecanvas = sugargame.canvas.PygameCanvas(self, main=self.game.run, modules=[pygame.display])
 

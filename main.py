@@ -146,7 +146,6 @@ class TowerOfHanoi:
                     self.is_running = False
                 elif event.type == pygame.VIDEORESIZE:
                     self.screen = pygame.display.set_mode((event.size[0], event.size[1] - GRID_CELL_SIZE),pygame.RESIZABLE)
-                    break
             
             self.screen.fill("white")
             self.background.sprite.draw(self.screen)
