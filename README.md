@@ -3,7 +3,7 @@ What is this?
 
 Tower Of Hanoi is a puzzle game for the Sugar desktop.
 
-![alt text](https://github.com/vaibhav-sangwan/tower-of-hanoi/blob/main/screenshots/instructions.png?raw=true)
+![alt text](https://github.com/vaibhav-sangwan-02/tower-of-hanoi/blob/main/screenshots/instructions.png?raw=true)
 
 How to use?
 ===========
