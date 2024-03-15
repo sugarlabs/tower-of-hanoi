@@ -34,6 +34,8 @@ from disk import Disk
 from cursor import Cursor
 from win_message import Win_message
 
+from gettext import gettext as _
+
 DISK_COLORS = [
     "#76428a",
     "#639bff",
@@ -51,7 +53,7 @@ class TowerOfHanoi:
     def __init__(self):
         pygame.display.init()
         pygame.font.init()
-        pygame.display.set_caption("Tower Of Hanoi")
+        pygame.display.set_caption(_("Tower Of Hanoi"))
         self.clock = pygame.time.Clock()
         self.disks = []
         self.level = 1

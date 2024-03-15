@@ -21,6 +21,7 @@
 # Vaibhav Sangwan    sangwanvaibhav02@gmail.com
 
 import pygame
+from gettext import gettext as _
 
 
 class Win_message:
@@ -32,7 +33,9 @@ class Win_message:
         self.image = self.image.convert_alpha()
 
         text_font = pygame.font.Font(None, 18)
-        text = text_font.render("Moves Taken: " + str(moves), False, "#e58c4f")
+        text = text_font.render(_("Moves Taken: ") + str(moves),
+                                False,
+                                "#e58c4f")
         text_rect = text.get_rect(center=(self.image.get_width() / 2, 85))
         self.image.blit(text, text_rect)
 
