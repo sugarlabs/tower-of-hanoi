@@ -23,7 +23,8 @@
 from gettext import gettext as _
 
 import gi
-gi.require_version('Gtk', '3.0')
+
+gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 import pygame
 
@@ -35,11 +36,14 @@ from sugar3.activity.widgets import StopButton, ActivityToolbarButton
 import sugargame.canvas
 import main
 
-DESCRIPTION = """Tower Of Hanoi is a mathematical puzzle game. The goal is to move the discs to the destination stack (rightmost).
+DESCRIPTION = _("""Tower Of Hanoi is a mathematical puzzle game. \
+The goal is to move the discs to the destination stack (rightmost).
 Rules of Tower Of Hanoi:-
 1) Only one disc can be moved at a time.
-2) Only the top disc of one stack can be transferred to the top of another stack or an empty rod.
-3) Larger discs cannot be stacked over smaller ones."""
+2) Only the top disc of one stack can \
+be transferred to the top of another stack or an empty rod.
+3) Larger discs cannot be stacked over smaller ones.""")
+
 
 class TowerOfHanoiActivity(Activity):
 
@@ -47,17 +51,19 @@ class TowerOfHanoiActivity(Activity):
         Activity.__init__(self, handle)
 
         self.game = main.TowerOfHanoi()
-        self.metadata['description'] = DESCRIPTION
-        
+        self.metadata["description"] = DESCRIPTION
+
         self.build_toolbar()
-        self._pygamecanvas = sugargame.canvas.PygameCanvas(self, main=self.game.run, modules=[pygame.display])
+        self._pygamecanvas = sugargame.canvas.PygameCanvas(
+            self, main=self.game.run, modules=[pygame.display]
+        )
 
         self.set_canvas(self._pygamecanvas)
         self._pygamecanvas.grab_focus()
 
     def build_toolbar(self):
         toolbar_box = ToolbarBox()
-        
+
         activity_button = ActivityToolbarButton(self)
         toolbar_box.toolbar.insert(activity_button, 0)
         activity_button.show()
@@ -71,7 +77,7 @@ class TowerOfHanoiActivity(Activity):
         stop_button = StopButton(self)
         toolbar_box.toolbar.insert(stop_button, -1)
         stop_button.show()
-        stop_button.connect('clicked', self._stop_cb)
+        stop_button.connect("clicked", self._stop_cb)
 
         self.set_toolbar_box(toolbar_box)
         toolbar_box.show()

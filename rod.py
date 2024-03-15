@@ -22,12 +22,13 @@
 
 from disk import Disk
 
+
 class Rod:
     def __init__(self, mid, bottom):
         self.top = bottom
         self.mid = mid
         self.disks = []
-    
+
     def putOnTop(self, disk: Disk):
         if len(self.disks) != 0 and self.disks[-1].width < disk.width:
             return False

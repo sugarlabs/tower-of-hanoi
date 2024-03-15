@@ -22,7 +22,8 @@
 
 import pygame
 
-class Disk():
+
+class Disk:
     def __init__(self, color, width, height):
         super().__init__()
         self.width = width
@@ -32,13 +33,16 @@ class Disk():
     def moveAt(self, mid, bottom):
         self.mid = mid
         self.bottom = bottom
-    
+
     def draw(self, screen):
         sw = screen.get_width()
         sh = screen.get_height()
-        rectangle = pygame.Rect(0, 0, self.width / 800 * sw, self.height / 400 * sh)
+        rectangle = pygame.Rect(0,
+                                0,
+                                self.width / 800 * sw,
+                                self.height / 400 * sh)
         rectangle.midbottom = (self.mid / 800 * sw, self.bottom / 400 * sh)
         pygame.draw.rect(screen, self.color, rectangle, 0, 5)
-    
+
     def putInFocus(self):
         self.bottom = 90

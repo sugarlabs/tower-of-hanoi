@@ -22,22 +22,24 @@
 
 import pygame
 
+
 class Background(pygame.sprite.Sprite):
     def __init__(self, screen, state):
         super().__init__()
         self.screen = screen
         self.change_state(state)
-        self.rect = self.image.get_rect(topleft = (0, 0))
-    
+        self.rect = self.image.get_rect(topleft=(0, 0))
+
     def change_state(self, state):
         if state == "instructions":
-            self.image = pygame.image.load('./assets/instructions-background.png')
+            self.image = pygame.image.load(
+                "./assets/instructions-background.png")
         else:
-            self.image = pygame.image.load('./assets/running-background.png')
-    
+            self.image = pygame.image.load("./assets/running-background.png")
+
     def draw(self, screen):
         sw = screen.get_width()
         sh = screen.get_height()
         image = pygame.transform.scale(self.image, (sw, sh))
-        rect = image.get_rect(topleft = (0, 0))
+        rect = image.get_rect(topleft=(0, 0))
         screen.blit(image, rect)
