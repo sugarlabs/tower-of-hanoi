@@ -134,7 +134,7 @@ class TowerOfHanoi:
         for disk in self.disks:
             disk.draw(self.screen)
 
-        if len(self.target.disks) == self.level:
+        if len(self.target.disks) == self.level or len(self.aux.disks) == self.level:
             self.win_message = Win_message(self.level, self.moves)
             self.state = "won"
 
