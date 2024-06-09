@@ -144,7 +144,7 @@ class TowerOfHanoi:
     def run(self):
         self.state = "instructions"
 
-        self.screen = pygame.display.get_surface()
+        self.screen = pygame.display.set_mode((800, 400), pygame.FULLSCREEN | pygame.SCALED)
         self.screen.fill("white")
         self.background = pygame.sprite.GroupSingle()
         self.background.add(Background(self.screen, self.state))
@@ -157,11 +157,6 @@ class TowerOfHanoi:
             for event in self.py_events:
                 if event.type == pygame.QUIT:
                     self.is_running = False
-                elif event.type == pygame.VIDEORESIZE:
-                    self.screen = pygame.display.set_mode(
-                        (event.size[0], event.size[1] - GRID_CELL_SIZE),
-                        pygame.RESIZABLE,
-                    )
 
             self.screen.fill("white")
             self.background.sprite.draw(self.screen)
@@ -180,5 +175,5 @@ class TowerOfHanoi:
 if __name__ == "__main__":
     g = TowerOfHanoi()
     GAME_SIZE = (800, 400)
-    g.screen = pygame.display.set_mode(GAME_SIZE, pygame.RESIZABLE)
+    g.screen = pygame.display.set_mode(GAME_SIZE, pygame.FULLSCREEN | pygame.SCALED)
     g.run()

@@ -42,12 +42,4 @@ class Win_message:
         self.rect = self.image.get_rect(center=(400, 200))
 
     def draw(self, screen):
-        sw = screen.get_width()
-        sh = screen.get_height()
-        image = pygame.transform.scale(
-            self.image,
-            (self.image.get_width() / 800 * sw,
-             self.image.get_height() / 400 * sh),
-        )
-        rect = image.get_rect(center=(sw / 2, sh / 2))
-        screen.blit(image, rect)
+        screen.blit(self.image, self.rect)

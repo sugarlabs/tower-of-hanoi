@@ -38,8 +38,4 @@ class Background(pygame.sprite.Sprite):
             self.image = pygame.image.load("./assets/running-background.png")
 
     def draw(self, screen):
-        sw = screen.get_width()
-        sh = screen.get_height()
-        image = pygame.transform.scale(self.image, (sw, sh))
-        rect = image.get_rect(topleft=(0, 0))
-        screen.blit(image, rect)
+        screen.blit(self.image, self.rect)

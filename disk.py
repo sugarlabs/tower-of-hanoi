@@ -35,14 +35,12 @@ class Disk:
         self.bottom = bottom
 
     def draw(self, screen):
-        sw = screen.get_width()
-        sh = screen.get_height()
         rectangle = pygame.Rect(0,
                                 0,
-                                self.width / 800 * sw,
-                                self.height / 400 * sh)
-        rectangle.midbottom = (self.mid / 800 * sw, self.bottom / 400 * sh)
+                                self.width,
+                                self.height)
+        rectangle.midbottom = (self.mid, self.bottom)
         pygame.draw.rect(screen, self.color, rectangle, 0, 5)
 
     def putInFocus(self):
-        self.bottom = 90
+        self.bottom = 100

@@ -33,15 +33,4 @@ class Cursor(pygame.sprite.Sprite):
         self.rect.centerx = rod.mid
 
     def draw(self, screen):
-        sw = screen.get_width()
-        sh = screen.get_height()
-        image = pygame.transform.scale(
-            self.image,
-            (self.image.get_width() / 800 * sw,
-             self.image.get_height() / 400 * sh),
-        )
-        rect = image.get_rect(
-            midbottom=(self.rect.centerx / 800 * sw,
-                       self.rect.centery / 400 * sh)
-        )
-        screen.blit(image, rect)
+        screen.blit(self.image, self.rect)
