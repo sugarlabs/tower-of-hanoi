@@ -30,6 +30,7 @@ from background import Background
 from rod import Rod
 from disk import Disk
 from cursor import Cursor
+from cloud import Cloud
 from win_message import Win_message
 
 from gettext import gettext as _
@@ -46,6 +47,8 @@ DISK_COLORS = [
 DISK_HEIGHT = 15
 DISK_RADII = [150, 130, 110, 90, 70, 50, 30]
 
+# USER_EVENT for spawning clouds
+SPAWNCLOUD = pygame.USEREVENT + 1
 
 class TowerOfHanoi:
     def __init__(self):
@@ -56,6 +59,9 @@ class TowerOfHanoi:
         self.disks = []
         self.level = 1
         self.moves = 0
+        self.clouds = pygame.sprite.Group()
+        self.clouds.add(Cloud())
+        pygame.time.set_timer(SPAWNCLOUD, 12000)
 
     def load_level(self):
         self.screen.fill("white")
@@ -85,13 +91,18 @@ class TowerOfHanoi:
         for event in self.py_events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
-                    self.state = "instructions"
+                    self.state = "running"
                     self.background.sprite.change_state(self.state)
                     self.moves = 0
                     self.level += 1
                     if self.level > 7:
                         self.level = 1
+                    self.load_level()
+            elif event.type == SPAWNCLOUD:
+                self.clouds.add(Cloud())
 
+        self.clouds.update()
+        self.clouds.draw(self.screen)
         self.cursor.draw(self.screen)
 
         for disk in self.disks:
@@ -126,7 +137,11 @@ class TowerOfHanoi:
 
                 elif event.key == pygame.K_r:
                     self.load_level()
+            elif event.type == SPAWNCLOUD:
+                self.clouds.add(Cloud())
 
+        self.clouds.update()
+        self.clouds.draw(self.screen)        
         self.cursor.draw(self.screen)
 
         for disk in self.disks:
