@@ -39,7 +39,7 @@ class Win_message:
         text_rect = text.get_rect(center=(self.image.get_width() / 2, 85))
         self.image.blit(text, text_rect)
 
-        self.rect = self.image.get_rect(center=(400, 200))
+        self.rect = self.image.get_rect(center=(320, 180))
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)

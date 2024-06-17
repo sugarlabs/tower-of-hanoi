@@ -43,4 +43,4 @@ class Disk:
         pygame.draw.rect(screen, self.color, rectangle, 0, 5)
 
     def putInFocus(self):
-        self.bottom = 100
+        self.bottom = 80

@@ -25,8 +25,6 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
-from sugar3.graphics.style import GRID_CELL_SIZE
-
 import pygame
 from background import Background
 from rod import Rod
@@ -64,9 +62,9 @@ class TowerOfHanoi:
         self.background = pygame.sprite.GroupSingle()
         self.background.add(Background(self.screen, self.state))
         self.disks = []
-        self.source = Rod(200, 341)
-        self.aux = Rod(400, 341)
-        self.target = Rod(600, 341)
+        self.source = Rod(120, 305)
+        self.aux = Rod(320, 305)
+        self.target = Rod(520, 305)
         for i in range(7 - self.level, 7):
             self.disks.append(Disk(DISK_COLORS[i], DISK_RADII[i], DISK_HEIGHT))
             self.source.putOnTop(self.disks[-1])
@@ -144,7 +142,7 @@ class TowerOfHanoi:
     def run(self):
         self.state = "instructions"
 
-        self.screen = pygame.display.set_mode((800, 400), pygame.FULLSCREEN | pygame.SCALED)
+        self.screen = pygame.display.set_mode((640, 360), pygame.SCALED)
         self.screen.fill("white")
         self.background = pygame.sprite.GroupSingle()
         self.background.add(Background(self.screen, self.state))
@@ -174,6 +172,6 @@ class TowerOfHanoi:
 
 if __name__ == "__main__":
     g = TowerOfHanoi()
-    GAME_SIZE = (800, 400)
-    g.screen = pygame.display.set_mode(GAME_SIZE, pygame.FULLSCREEN | pygame.SCALED)
+    GAME_SIZE = (640, 360)
+    g.screen = pygame.display.set_mode(GAME_SIZE, pygame.SCALED)
     g.run()
