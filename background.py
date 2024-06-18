@@ -24,9 +24,8 @@ import pygame
 
 
 class Background(pygame.sprite.Sprite):
-    def __init__(self, screen, state):
+    def __init__(self, state):
         super().__init__()
-        self.screen = screen
         self.change_state(state)
         self.rect = self.image.get_rect(topleft=(0, 0))
 
