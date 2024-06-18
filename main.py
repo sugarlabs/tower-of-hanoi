@@ -28,6 +28,7 @@ from gi.repository import Gtk
 import pygame
 from gamestatemanager import GameStateManager
 from level import Level
+from mainmenu import MainMenu
 
 from gettext import gettext as _
 
@@ -41,10 +42,11 @@ class TowerOfHanoi:
         pygame.display.set_caption(_("Tower Of Hanoi"))
         self.screen = pygame.display.set_mode(GAME_SIZE, pygame.SCALED)
         self.clock = pygame.time.Clock()
-        self.gameStateManager = GameStateManager("level 1")
+        self.gameStateManager = GameStateManager("main-menu")
         self.states = {}
         for i in range(1, 8):
             self.states["level " + str(i)] = Level(i, self)
+        self.states["main-menu"] = MainMenu(self)
 
     def run(self):
         self.is_running = True
