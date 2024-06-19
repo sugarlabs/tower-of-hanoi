@@ -21,6 +21,7 @@
 # Vaibhav Sangwan    sangwanvaibhav02@gmail.com
 
 import pygame
+from utils import Utils
 
 pygame.font.init()
 text_font = pygame.font.SysFont("ubuntumono", 18)
@@ -39,11 +40,11 @@ class Button(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = (x, y))
     
     def check_press(self):
-        if self.rect.collidepoint(pygame.mouse.get_pos()):
+        if self.rect.collidepoint(Utils.norm_cursor_pos()):
             self.gameStateManager.set_state(self.targetState)
     
     def update(self):
-        curr_state = self.rect.collidepoint(pygame.mouse.get_pos())
+        curr_state = self.rect.collidepoint(Utils.norm_cursor_pos())
         if self.active != curr_state:
             self.active = curr_state
             if self.active:

@@ -29,6 +29,7 @@ import pygame
 from gamestatemanager import GameStateManager
 from level import Level
 from mainmenu import MainMenu
+from utils import Utils
 
 from gettext import gettext as _
 
@@ -40,15 +41,28 @@ class TowerOfHanoi:
         pygame.display.init()
         pygame.font.init()
         pygame.display.set_caption(_("Tower Of Hanoi"))
-        self.screen = pygame.display.set_mode(GAME_SIZE, pygame.SCALED)
         self.clock = pygame.time.Clock()
+
+    def run(self):
+        self.screen = pygame.Surface(GAME_SIZE)
+        render_screen = pygame.display.set_mode(GAME_SIZE, pygame.FULLSCREEN)
+        screen_width = render_screen.get_width()
+        screen_height = render_screen.get_height()
+        x_ratio = screen_width // GAME_SIZE[0]
+        y_ratio = screen_height // GAME_SIZE[1]
+        scale = min(x_ratio, y_ratio)
+        act_sw = GAME_SIZE[0] * scale
+        act_sh = GAME_SIZE[1] * scale        
+        self.scaled_screen_rect = pygame.Rect(0, 0, act_sw, act_sh)
+        self.scaled_screen_rect.center = (screen_width / 2, screen_height / 2)
+        Utils.scaled_screen_rect = self.scaled_screen_rect
+
         self.gameStateManager = GameStateManager("main-menu")
         self.states = {}
         for i in range(1, 8):
             self.states["level " + str(i)] = Level(i, self)
         self.states["main-menu"] = MainMenu(self)
 
-    def run(self):
         self.is_running = True
         while self.is_running:
             curr_state = self.states[self.gameStateManager.get_state()]
@@ -61,6 +75,9 @@ class TowerOfHanoi:
                 curr_state.handle_event(event)
 
             curr_state.run()
+
+            scaled_screen = pygame.transform.scale(self.screen, (scale * GAME_SIZE[0], scale * GAME_SIZE[1]))
+            render_screen.blit(scaled_screen, self.scaled_screen_rect)
 
             pygame.display.update()
             self.clock.tick(FPS)
