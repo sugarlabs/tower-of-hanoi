@@ -43,6 +43,8 @@ DISK_COLORS = [
 DISK_HEIGHT = 15
 DISK_RADII = [150, 130, 110, 90, 70, 50, 30]
 
+font_m = pygame.font.Font("./fonts/3Dventure.ttf", 24)
+
 class Level:
     def __init__(self, level, game):
         self.level = level
@@ -85,6 +87,10 @@ class Level:
             disk.draw(self.screen)
         
         self.cursor.draw(self.screen)
+
+        score_text = font_m.render(f'{self.moves}', False, "black")
+        score_text_rect = score_text.get_rect(center = (320, 25))
+        self.screen.blit(score_text, score_text_rect)
 
         if self.has_won:
             self.win_message.draw(self.screen)

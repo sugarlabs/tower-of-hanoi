@@ -26,6 +26,8 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 import pygame
+pygame.init()
+
 from gamestatemanager import GameStateManager
 from level import Level
 from mainmenu import MainMenu
@@ -38,8 +40,6 @@ GAME_SIZE = 640, 360
 
 class TowerOfHanoi:
     def __init__(self):
-        pygame.display.init()
-        pygame.font.init()
         pygame.display.set_caption(_("Tower Of Hanoi"))
         self.clock = pygame.time.Clock()
 

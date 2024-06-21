@@ -23,8 +23,7 @@
 import pygame
 from utils import Utils
 
-pygame.font.init()
-text_font = pygame.font.SysFont("ubuntumono", 18)
+text_font = pygame.font.Font("./fonts/3Dventure.ttf", 16)
 
 class Button(pygame.sprite.Sprite):
     def __init__(self, text, x, y, gameStateManager, targetState):
