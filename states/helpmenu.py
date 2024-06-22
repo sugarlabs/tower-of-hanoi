@@ -23,6 +23,7 @@
 import pygame
 
 from utils import Utils
+from sprites.backbutton import BackButton
 
 font_s = pygame.font.Font("./fonts/m04b.ttf", 8)
 help_text = """Tower Of Hanoi is a mathematical puzzle game. \
@@ -49,6 +50,8 @@ class HelpMenu:
         self.bg = pygame.image.load('./assets/main-menu-background.png')
         self.bg_rect = self.bg.get_rect(topleft = (0, 0))
 
+        self.backbutton = BackButton(530, 240, self.gameStateManager, "main-menu")
+
         self.scroll = pygame.image.load('./assets/scroll.png')
         self.scroll = pygame.transform.scale_by(self.scroll, 6)
         self.scroll_rect = self.scroll.get_rect(midtop = (self.screen.get_width()/2, 25))
@@ -57,11 +60,13 @@ class HelpMenu:
         
     
     def handle_event(self, event):
-        pass
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            self.backbutton.check_press()
 
     def render(self):
         self.screen.blit(self.bg, self.bg_rect)
         self.screen.blit(self.scroll, self.scroll_rect)
+        self.screen.blit(self.backbutton.image, self.backbutton.rect)
 
     def run(self):
         self.render()

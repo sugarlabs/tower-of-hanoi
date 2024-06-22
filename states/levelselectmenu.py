@@ -23,6 +23,7 @@
 import pygame
 
 from sprites.button import Button
+from sprites.backbutton import BackButton
 
 class LevelSelectMenu:
     def __init__(self, game):
@@ -53,16 +54,19 @@ class LevelSelectMenu:
                 self.gameStateManager,
                 "level " + str(i + 1)
             ))
+        self.backbutton = BackButton(32, 32, self.gameStateManager, "main-menu")
     
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             for button in self.buttons:
                 if button.check_press():
                     self.game.states[button.targetState].reset_level()
+            self.backbutton.check_press()
         
     def render(self):
         self.screen.blit(self.bg, self.bg_rect)
         self.buttons.draw(self.screen)
+        self.screen.blit(self.backbutton.image, self.backbutton.rect)
 
     def run(self):
         self.buttons.update()
