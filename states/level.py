@@ -21,7 +21,6 @@
 # Vaibhav Sangwan    sangwanvaibhav02@gmail.com
 
 import pygame
-from sprites.background import Background
 from sprites.rod import Rod
 from sprites.cursor import Cursor
 from sprites.disk import Disk
@@ -51,22 +50,17 @@ class Level:
         self.screen = game.screen
         self.gameStateManager = game.gameStateManager
         self.game = game
-
-        self.source = Rod(120, 305)
-        self.aux = Rod(320, 305)
-        self.target = Rod(520, 305)
-        self.rods = [self.source, self.aux, self.target]
-
-        self.background = Background("level")
-        self.has_won = False
-
-        self.clouds = pygame.sprite.Group()
-        self.clouds.add(Cloud())
-        pygame.time.set_timer(SPAWNCLOUD, 12000)
+        self.bg = pygame.image.load('./assets/running-background.png')
+        self.bg_rect = self.bg.get_rect(topleft = (0, 0))
         self.reset_level()
 
     def reset_level(self):
         self.moves = 0
+        self.source = Rod(120, 305)
+        self.aux = Rod(320, 305)
+        self.target = Rod(520, 305)
+        self.rods = [self.source, self.aux, self.target]
+        self.has_won = False
         self.rodIndex = 0
 
         self.disks = []
@@ -75,10 +69,13 @@ class Level:
             self.source.putOnTop(self.disks[-1])
         self.diskInFocus = None
         
+        self.clouds = pygame.sprite.Group()
+        self.clouds.add(Cloud())
+        pygame.time.set_timer(SPAWNCLOUD, 12000)
         self.cursor = Cursor()
     
     def render(self):
-        self.background.draw(self.screen)
+        self.screen.blit(self.bg, self.bg_rect)
 
         self.clouds.update()
         self.clouds.draw(self.screen)
@@ -128,6 +125,7 @@ class Level:
             if event.key == pygame.K_SPACE:
                 if self.level < 7:
                     self.gameStateManager.set_state("level " + str(self.level + 1))
+                    self.game.states[self.gameStateManager.get_state()].reset_level()
                 else:
                     self.gameStateManager.set_state("main-menu")
 

@@ -41,6 +41,8 @@ class Button(pygame.sprite.Sprite):
     def check_press(self):
         if self.rect.collidepoint(Utils.norm_cursor_pos()):
             self.gameStateManager.set_state(self.targetState)
+            return True
+        return False
     
     def update(self):
         curr_state = self.rect.collidepoint(Utils.norm_cursor_pos())

@@ -24,30 +24,44 @@ import pygame
 
 from sprites.button import Button
 
-class MainMenu:
+class LevelSelectMenu:
     def __init__(self, game):
         self.screen = game.screen
         self.gameStateManager = game.gameStateManager
         self.game = game
 
-        self.buttons = pygame.sprite.Group()
-        self.buttons.add(Button("PLAY", 320, 180, self.gameStateManager, "level-select-menu"))
-        self.buttons.add(Button("HELP", 320, 230, self.gameStateManager, "help-menu"))
-
         self.bg = pygame.image.load('./assets/main-menu-background.png')
         self.bg_rect = self.bg.get_rect(topleft = (0, 0))
 
-        self.logo = pygame.image.load('./assets/logo.png')
-        self.logo_rect = self.logo.get_rect(center = (320, 90))
+        self.buttons = pygame.sprite.Group()
+
+        button_pos = (
+            (120, 80),
+            (320, 80),
+            (520, 80),
+            (120, 160),
+            (320, 160),
+            (520, 160),
+            (320, 240)
+        )
+        
+        for i in range(len(button_pos)):
+            self.buttons.add(Button(
+                "Level " + str(i + 1),
+                button_pos[i][0],
+                button_pos[i][1],
+                self.gameStateManager,
+                "level " + str(i + 1)
+            ))
     
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             for button in self.buttons:
-                button.check_press()
-    
+                if button.check_press():
+                    self.game.states[button.targetState].reset_level()
+        
     def render(self):
         self.screen.blit(self.bg, self.bg_rect)
-        self.screen.blit(self.logo, self.logo_rect)
         self.buttons.draw(self.screen)
 
     def run(self):
