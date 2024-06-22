@@ -29,9 +29,9 @@ import pygame
 pygame.init()
 
 from gamestatemanager import GameStateManager
-from level import Level
-from mainmenu import MainMenu
-from helpmenu import HelpMenu
+from states.level import Level
+from states.mainmenu import MainMenu
+from states.helpmenu import HelpMenu
 from utils import Utils
 
 from gettext import gettext as _

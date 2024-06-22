@@ -22,7 +22,7 @@
 
 import pygame
 
-from button import Button
+from sprites.button import Button
 
 class MainMenu:
     def __init__(self, game):

@@ -21,12 +21,12 @@
 # Vaibhav Sangwan    sangwanvaibhav02@gmail.com
 
 import pygame
-from background import Background
-from rod import Rod
-from cursor import Cursor
-from disk import Disk
-from cloud import Cloud
-from win_message import Win_message
+from sprites.background import Background
+from sprites.rod import Rod
+from sprites.cursor import Cursor
+from sprites.disk import Disk
+from sprites.cloud import Cloud
+from sprites.win_message import Win_message
 
 # USER_EVENT for spawning clouds
 SPAWNCLOUD = pygame.USEREVENT + 1
