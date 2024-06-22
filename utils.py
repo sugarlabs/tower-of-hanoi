@@ -36,3 +36,24 @@ class Utils:
         mouse_norm_y = dy * GAME_SIZE[1] / rect.height
 
         return mouse_norm_x, mouse_norm_y
+
+    def render_multiple_lines(text, surface, right_margin, pos, color, font):
+        rect = surface.get_rect()
+        bound = rect.right - right_margin
+        x, y = pos
+        space = font.size(' ')[0]
+
+        words = [line.split() for line in text.split('\n')]
+        for line in words:
+            for word in line:
+                word_surf = font.render(word, False, color)
+                word_width, word_height = word_surf.get_size()
+                if x + word_width > bound:
+                    x = pos[0]
+                    y += word_height + 5
+                
+                surface.blit(word_surf, (x, y))
+                x += word_width + space
+            
+            x = pos[0]
+            y += word_height + 3

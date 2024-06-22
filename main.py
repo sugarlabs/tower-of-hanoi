@@ -31,6 +31,7 @@ pygame.init()
 from gamestatemanager import GameStateManager
 from level import Level
 from mainmenu import MainMenu
+from helpmenu import HelpMenu
 from utils import Utils
 
 from gettext import gettext as _
@@ -62,6 +63,7 @@ class TowerOfHanoi:
         for i in range(1, 8):
             self.states["level " + str(i)] = Level(i, self)
         self.states["main-menu"] = MainMenu(self)
+        self.states["help-menu"] = HelpMenu(self)
 
         self.is_running = True
         while self.is_running:
