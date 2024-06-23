@@ -1,9 +1,13 @@
 What is this?
 =============
 
-Tower Of Hanoi is a puzzle game for the Sugar desktop.
+Tower Of Hanoi is a puzzle game for the Sugar desktop. The goal of the game is to move the stack of disks to any one of the initially empty rods.
 
-![alt text](https://github.com/vaibhav-sangwan-02/tower-of-hanoi/blob/main/screenshots/instructions.png?raw=true)
+### Rules
+1. Only one disk can be moved at a time.
+2. Larger disks cannot be put on top of smaller ones.
+
+![Screenshot of Tower Of Hanoi](https://github.com/vaibhav-sangwan/tower-of-hanoi/assets/94783049/1ac1387f-6105-4775-b8a0-79dab212c2e2)
 
 How to use?
 ===========
