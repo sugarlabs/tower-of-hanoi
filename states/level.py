@@ -26,6 +26,7 @@ from sprites.cursor import Cursor
 from sprites.disk import Disk
 from sprites.cloud import Cloud
 from sprites.win_message import Win_message
+from sprites.pausebutton import PauseButton
 
 # USER_EVENT for spawning clouds
 SPAWNCLOUD = pygame.USEREVENT + 1
@@ -52,6 +53,7 @@ class Level:
         self.game = game
         self.bg = pygame.image.load('./assets/running-background.png')
         self.bg_rect = self.bg.get_rect(topleft = (0, 0))
+        self.pause_button = PauseButton(32, 32, self.gameStateManager, "pause-menu", self.game)
         self.reset_level()
 
     def reset_level(self):
@@ -89,12 +91,16 @@ class Level:
         score_text_rect = score_text.get_rect(center = (320, 25))
         self.screen.blit(score_text, score_text_rect)
 
+        self.screen.blit(self.pause_button.image, self.pause_button.rect)
+
         if self.has_won:
             self.win_message.draw(self.screen)
     
     def handle_event(self, event):
         if event.type == SPAWNCLOUD:
             self.clouds.add(Cloud())
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            self.pause_button.check_press()
         elif event.type == pygame.KEYDOWN and not self.has_won:
             if event.key == pygame.K_LEFT:
                 self.rodIndex = ((self.rodIndex - 1) + 3) % 3

@@ -33,6 +33,7 @@ from states.level import Level
 from states.mainmenu import MainMenu
 from states.helpmenu import HelpMenu
 from states.levelselectmenu import LevelSelectMenu
+from states.pausemenu import PauseMenu
 from utils import Utils
 
 from gettext import gettext as _
@@ -66,6 +67,7 @@ class TowerOfHanoi:
         self.states["main-menu"] = MainMenu(self)
         self.states["help-menu"] = HelpMenu(self)
         self.states["level-select-menu"] = LevelSelectMenu(self)
+        self.states["pause-menu"] = PauseMenu(self)
 
         self.is_running = True
         while self.is_running:
