@@ -48,11 +48,11 @@ class TowerOfHanoi:
 
     def run(self):
         self.screen = pygame.Surface(GAME_SIZE)
-        render_screen = pygame.display.set_mode(GAME_SIZE, pygame.FULLSCREEN)
+        render_screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         screen_width = render_screen.get_width()
         screen_height = render_screen.get_height()
-        x_ratio = screen_width // GAME_SIZE[0]
-        y_ratio = screen_height // GAME_SIZE[1]
+        x_ratio = screen_width / GAME_SIZE[0]
+        y_ratio = screen_height / GAME_SIZE[1]
         scale = min(x_ratio, y_ratio)
         act_sw = GAME_SIZE[0] * scale
         act_sh = GAME_SIZE[1] * scale        
