@@ -37,6 +37,15 @@ class Utils:
 
         return mouse_norm_x, mouse_norm_y
 
+    def get_act_pos(pos):
+        rect = Utils.scaled_screen_rect
+        x, y = pos
+        sx, sy = rect.left, rect.top
+        act_x = sx + (x * rect.width / GAME_SIZE[0])
+        act_y = sy + (y * rect.height / GAME_SIZE[1])
+
+        return act_x, act_y
+
     def render_multiple_lines(text, surface, right_margin, pos, color, font):
         rect = surface.get_rect()
         bound = rect.right - right_margin

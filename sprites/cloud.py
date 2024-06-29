@@ -24,12 +24,23 @@ import pygame
 import random
 
 class Cloud(pygame.sprite.Sprite):
-    def __init__(self, x = 750, y = 50):
+    def __init__(self, x = 640, y = 50):
         super().__init__()
         self.image = pygame.image.load("./assets/clouds/" + str(random.randint(0, 2)) +".png")
-        self.rect = self.image.get_rect(center=(x, y))
+        self.image.set_alpha(0)
+        self.rect = self.image.get_rect(midright = (x, y))
 
     def update(self):
+        if self.rect.centerx < 100 + (self.rect.width / 2):
+            self.image.set_alpha(self.get_alpha_grad(self.rect.width / 2, 100 + (self.rect.width / 2)))
+        elif self.rect.centerx < 540 - (self.rect.width / 2):
+            self.image.set_alpha(255)
+        else:
+            self.image.set_alpha(self.get_alpha_grad(640 - (self.rect.width / 2), 540 - (self.rect.width / 2)))
+
         self.rect.move_ip(-1, 0)
         if self.rect.right < 0:
             self.kill()
+    
+    def get_alpha_grad(self, initial, final):
+        return (self.rect.centerx - initial) / (final - initial) * 255

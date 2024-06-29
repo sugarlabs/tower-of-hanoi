@@ -45,17 +45,27 @@ class TowerOfHanoi:
     def __init__(self):
         pygame.display.set_caption(_("Tower Of Hanoi"))
         self.clock = pygame.time.Clock()
+    
+    def fill_bg(self):
+        part1 = Utils.get_act_pos((0, 322))[1]
+        part2 = Utils.get_act_pos((0, 342))[1]
+        pygame.draw.rect(self.render_screen, "#bee7fb",
+                         (0, 0, self.render_screen.get_width(), part1))
+        pygame.draw.rect(self.render_screen, "#4d913c",
+                         (0, part1, self.render_screen.get_width(), part2))
+        pygame.draw.rect(self.render_screen, "#7cab41",
+                             (0, part2, self.render_screen.get_width(),self. render_screen.get_height()))
 
     def run(self):
         self.screen = pygame.Surface(GAME_SIZE)
-        render_screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        screen_width = render_screen.get_width()
-        screen_height = render_screen.get_height()
+        self.render_screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        screen_width = self.render_screen.get_width()
+        screen_height = self.render_screen.get_height()
         x_ratio = screen_width / GAME_SIZE[0]
         y_ratio = screen_height / GAME_SIZE[1]
-        scale = min(x_ratio, y_ratio)
-        act_sw = GAME_SIZE[0] * scale
-        act_sh = GAME_SIZE[1] * scale        
+        self.scale = min(x_ratio, y_ratio)
+        act_sw = GAME_SIZE[0] * self.scale
+        act_sh = GAME_SIZE[1] * self.scale        
         self.scaled_screen_rect = pygame.Rect(0, 0, act_sw, act_sh)
         self.scaled_screen_rect.center = (screen_width / 2, screen_height / 2)
         Utils.scaled_screen_rect = self.scaled_screen_rect
@@ -82,8 +92,9 @@ class TowerOfHanoi:
 
             curr_state.run()
 
-            scaled_screen = pygame.transform.scale(self.screen, (scale * GAME_SIZE[0], scale * GAME_SIZE[1]))
-            render_screen.blit(scaled_screen, self.scaled_screen_rect)
+            self.fill_bg()
+            scaled_screen = pygame.transform.scale(self.screen, (self.scale * GAME_SIZE[0], self.scale * GAME_SIZE[1]))
+            self.render_screen.blit(scaled_screen, self.scaled_screen_rect)
 
             pygame.display.update()
             self.clock.tick(FPS)
