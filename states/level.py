@@ -45,6 +45,7 @@ DISK_RADII = [150, 130, 110, 90, 70, 50, 30]
 
 font_m = pygame.font.Font("./fonts/3Dventure.ttf", 24)
 
+
 class Level:
     def __init__(self, level, game):
         self.level = level
@@ -52,8 +53,10 @@ class Level:
         self.gameStateManager = game.gameStateManager
         self.game = game
         self.bg = pygame.image.load('./assets/running-background.png')
-        self.bg_rect = self.bg.get_rect(topleft = (0, 0))
-        self.pause_button = PauseButton(32, 32, self.gameStateManager, "pause-menu", self.game)
+        self.bg_rect = self.bg.get_rect(topleft=(0, 0))
+        self.pause_button = PauseButton(
+            32, 32, self.gameStateManager, "pause-menu", self.game
+        )
         self.reset_level()
 
     def reset_level(self):
@@ -70,12 +73,12 @@ class Level:
             self.disks.append(Disk(DISK_COLORS[i], DISK_RADII[i], DISK_HEIGHT))
             self.source.putOnTop(self.disks[-1])
         self.diskInFocus = None
-        
+
         self.clouds = pygame.sprite.Group()
         self.clouds.add(Cloud())
         pygame.time.set_timer(SPAWNCLOUD, 12000)
         self.cursor = Cursor()
-    
+
     def render(self):
         self.screen.blit(self.bg, self.bg_rect)
 
@@ -84,18 +87,18 @@ class Level:
 
         for disk in self.disks:
             disk.draw(self.screen)
-        
+
         self.cursor.draw(self.screen)
 
         score_text = font_m.render(f'{self.moves}', False, "black")
-        score_text_rect = score_text.get_rect(center = (320, 25))
+        score_text_rect = score_text.get_rect(center=(320, 25))
         self.screen.blit(score_text, score_text_rect)
 
         self.screen.blit(self.pause_button.image, self.pause_button.rect)
 
         if self.has_won:
             self.win_message.draw(self.screen)
-    
+
     def handle_event(self, event):
         if event.type == SPAWNCLOUD:
             self.clouds.add(Cloud())
@@ -130,15 +133,21 @@ class Level:
         elif event.type == pygame.KEYDOWN and self.has_won:
             if event.key == pygame.K_SPACE:
                 if self.level < 7:
-                    self.gameStateManager.set_state("level " + str(self.level + 1))
-                    self.game.states[self.gameStateManager.get_state()].reset_level()
+                    self.gameStateManager.set_state(
+                        "level " + str(self.level + 1)
+                    )
+                    curr = self.game.states[self.gameStateManager.get_state()]
+                    curr.reset_level()
                 else:
                     self.gameStateManager.set_state("main-menu")
 
-        
     def run(self):
-        if len(self.target.disks) == self.level or len(self.aux.disks) == self.level:
+        stacked = max(
+            len(self.target.disks),
+            len(self.aux.disks)
+        )
+        if stacked == self.level:
             self.has_won = True
             self.win_message = Win_message(self.level, self.moves)
-        
+
         self.render()

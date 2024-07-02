@@ -24,6 +24,7 @@ import pygame
 
 from sprites.button import Button
 
+
 class MainMenu:
     def __init__(self, game):
         self.screen = game.screen
@@ -31,20 +32,24 @@ class MainMenu:
         self.game = game
 
         self.buttons = pygame.sprite.Group()
-        self.buttons.add(Button("PLAY", 320, 180, self.gameStateManager, "level-select-menu"))
-        self.buttons.add(Button("HELP", 320, 230, self.gameStateManager, "help-menu"))
+        self.buttons.add(Button(
+            "PLAY", 320, 180, self.gameStateManager, "level-select-menu"
+        ))
+        self.buttons.add(Button(
+            "HELP", 320, 230, self.gameStateManager, "help-menu"
+        ))
 
         self.bg = pygame.image.load('./assets/main-menu-background.png')
-        self.bg_rect = self.bg.get_rect(topleft = (0, 0))
+        self.bg_rect = self.bg.get_rect(topleft=(0, 0))
 
         self.logo = pygame.image.load('./assets/logo.png')
-        self.logo_rect = self.logo.get_rect(center = (320, 90))
-    
+        self.logo_rect = self.logo.get_rect(center=(320, 90))
+
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             for button in self.buttons:
                 button.check_press()
-    
+
     def render(self):
         self.screen.blit(self.bg, self.bg_rect)
         self.screen.blit(self.logo, self.logo_rect)

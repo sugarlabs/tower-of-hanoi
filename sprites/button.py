@@ -25,6 +25,7 @@ from utils import Utils
 
 text_font = pygame.font.Font("./fonts/3Dventure.ttf", 16)
 
+
 class Button(pygame.sprite.Sprite):
     def __init__(self, text, x, y, gameStateManager, targetState):
         super().__init__()
@@ -34,16 +35,21 @@ class Button(pygame.sprite.Sprite):
         self.text = text
         self.image = pygame.image.load('./assets/button-bg.png')
         self.text_surface = text_font.render(self.text, False, "black")
-        self.text_rect = self.text_surface.get_rect(center = (self.image.get_width()/2, self.image.get_height()/2))
+        self.text_rect = self.text_surface.get_rect(
+            center=(
+                self.image.get_width() / 2,
+                self.image.get_height() / 2
+            )
+        )
         self.image.blit(self.text_surface, self.text_rect)
-        self.rect = self.image.get_rect(center = (x, y))
-    
+        self.rect = self.image.get_rect(center=(x, y))
+
     def check_press(self):
         if self.rect.collidepoint(Utils.norm_cursor_pos()):
             self.gameStateManager.set_state(self.targetState)
             return True
         return False
-    
+
     def update(self):
         curr_state = self.rect.collidepoint(Utils.norm_cursor_pos())
         if self.active != curr_state:

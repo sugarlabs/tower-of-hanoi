@@ -41,6 +41,7 @@ Left - move the disk towards left
 Right - move the disk towards right
 """
 
+
 class HelpMenu:
     def __init__(self, game):
         self.screen = game.screen
@@ -48,17 +49,22 @@ class HelpMenu:
         self.game = game
 
         self.bg = pygame.image.load('./assets/main-menu-background.png')
-        self.bg_rect = self.bg.get_rect(topleft = (0, 0))
+        self.bg_rect = self.bg.get_rect(topleft=(0, 0))
 
-        self.backbutton = BackButton(530, 240, self.gameStateManager, "main-menu")
+        self.backbutton = BackButton(
+            530, 240, self.gameStateManager, "main-menu"
+        )
 
         self.scroll = pygame.image.load('./assets/scroll.png')
         self.scroll = pygame.transform.scale_by(self.scroll, 6)
-        self.scroll_rect = self.scroll.get_rect(midtop = (self.screen.get_width()/2, 25))
+        self.scroll_rect = self.scroll.get_rect(
+            midtop=(self.screen.get_width() / 2, 25)
+        )
 
-        Utils.render_multiple_lines(help_text, self.scroll, 60, (60, 60), "black", font_s)
-        
-    
+        Utils.render_multiple_lines(
+            help_text, self.scroll, 60, (60, 60), "black", font_s
+        )
+
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.backbutton.check_press()

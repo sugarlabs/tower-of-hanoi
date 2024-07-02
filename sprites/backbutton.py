@@ -23,21 +23,21 @@
 import pygame
 from utils import Utils
 
+
 class BackButton(pygame.sprite.Sprite):
     def __init__(self, x, y, gameStateManager, targetState):
         super().__init__()
         self.gameStateManager = gameStateManager
         self.targetState = targetState
-        
+
         self.image = pygame.image.load('./assets/back-button.png')
-        self.rect = self.image.get_rect(center = (x, y))
-        
-    
+        self.rect = self.image.get_rect(center=(x, y))
+
     def check_press(self):
         if self.rect.collidepoint(Utils.norm_cursor_pos()):
             self.gameStateManager.set_state(self.targetState)
             return True
         return False
-    
+
     def update(self):
         pass

@@ -24,6 +24,7 @@ import pygame
 
 BASE_RES = 640, 360
 
+
 class Utils:
     scaled_screen_rect = None
 
@@ -63,9 +64,9 @@ class Utils:
                 if x + word_width > bound:
                     x = pos[0]
                     y += word_height + 5
-                
+
                 surface.blit(word_surf, (x, y))
                 x += word_width + space
-            
+
             x = pos[0]
             y += word_height + 3

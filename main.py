@@ -26,6 +26,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 import pygame
+
 pygame.init()
 
 from gamestatemanager import GameStateManager
@@ -41,20 +42,35 @@ from gettext import gettext as _
 FPS = 30
 BASE_RES = 640, 360
 
+
 class TowerOfHanoi:
     def __init__(self):
         pygame.display.set_caption(_("Tower Of Hanoi"))
         self.clock = pygame.time.Clock()
-    
+
     def fill_bg(self):
         part1 = Utils.get_act_pos((0, 322))[1]
         part2 = Utils.get_act_pos((0, 342))[1]
-        pygame.draw.rect(self.render_screen, "#bee7fb",
-                         (0, 0, self.render_screen.get_width(), part1))
-        pygame.draw.rect(self.render_screen, "#4d913c",
-                         (0, part1, self.render_screen.get_width(), part2))
-        pygame.draw.rect(self.render_screen, "#7cab41",
-                             (0, part2, self.render_screen.get_width(),self. render_screen.get_height()))
+        pygame.draw.rect(
+            self.render_screen,
+            "#bee7fb",
+            (0, 0, self.render_screen.get_width(), part1)
+        )
+        pygame.draw.rect(
+            self.render_screen,
+            "#4d913c",
+            (0, part1, self.render_screen.get_width(), part2),
+        )
+        pygame.draw.rect(
+            self.render_screen,
+            "#7cab41",
+            (
+                0,
+                part2,
+                self.render_screen.get_width(),
+                self.render_screen.get_height()
+            ),
+        )
 
     def run(self):
         self.screen = pygame.Surface(BASE_RES)
@@ -65,7 +81,7 @@ class TowerOfHanoi:
         y_ratio = screen_height / BASE_RES[1]
         self.scale = min(x_ratio, y_ratio)
         act_sw = BASE_RES[0] * self.scale
-        act_sh = BASE_RES[1] * self.scale        
+        act_sh = BASE_RES[1] * self.scale
         self.scaled_screen_rect = pygame.Rect(0, 0, act_sw, act_sh)
         self.scaled_screen_rect.center = (screen_width / 2, screen_height / 2)
         Utils.scaled_screen_rect = self.scaled_screen_rect
@@ -84,7 +100,7 @@ class TowerOfHanoi:
             curr_state = self.states[self.gameStateManager.get_state()]
             while Gtk.events_pending():
                 Gtk.main_iteration()
-            
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.is_running = False
@@ -93,7 +109,10 @@ class TowerOfHanoi:
             curr_state.run()
 
             self.fill_bg()
-            scaled_screen = pygame.transform.scale(self.screen, (self.scale * BASE_RES[0], self.scale * BASE_RES[1]))
+            scaled_screen = pygame.transform.scale(
+                self.screen,
+                (self.scale * BASE_RES[0], self.scale * BASE_RES[1])
+            )
             self.render_screen.blit(scaled_screen, self.scaled_screen_rect)
 
             pygame.display.update()

@@ -23,7 +23,7 @@
 class GameStateManager():
     def __init__(self, state):
         self.currentState = state
-    
+
     def get_state(self):
         return self.currentState
 

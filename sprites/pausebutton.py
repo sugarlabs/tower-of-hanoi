@@ -23,23 +23,24 @@
 import pygame
 from utils import Utils
 
+
 class PauseButton(pygame.sprite.Sprite):
     def __init__(self, x, y, gameStateManager, targetState, game):
         super().__init__()
         self.gameStateManager = gameStateManager
         self.targetState = targetState
         self.game = game
-        
+
         self.image = pygame.image.load('./assets/pause-button.png')
-        self.rect = self.image.get_rect(center = (x, y))
-        
-    
+        self.rect = self.image.get_rect(center=(x, y))
+
     def check_press(self):
         if self.rect.collidepoint(Utils.norm_cursor_pos()):
-            self.game.states[self.targetState].set_target(self.gameStateManager.get_state())
+            curr_state = self.game.states[self.targetState]
+            curr_state.set_target(self.gameStateManager.get_state())
             self.gameStateManager.set_state(self.targetState)
             return True
         return False
-    
+
     def update(self):
         pass
