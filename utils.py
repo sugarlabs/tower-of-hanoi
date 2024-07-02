@@ -22,30 +22,33 @@
 
 import pygame
 
-GAME_SIZE = 640, 360
+BASE_RES = 640, 360
 
 class Utils:
     scaled_screen_rect = None
 
+    @staticmethod
     def norm_cursor_pos():
         rect = Utils.scaled_screen_rect
         mx, my = pygame.mouse.get_pos()
         dx = mx - rect.left
         dy = my - rect.top
-        mouse_norm_x = dx * GAME_SIZE[0] / rect.width
-        mouse_norm_y = dy * GAME_SIZE[1] / rect.height
+        mouse_norm_x = dx * BASE_RES[0] / rect.width
+        mouse_norm_y = dy * BASE_RES[1] / rect.height
 
         return mouse_norm_x, mouse_norm_y
 
+    @staticmethod
     def get_act_pos(pos):
         rect = Utils.scaled_screen_rect
         x, y = pos
         sx, sy = rect.left, rect.top
-        act_x = sx + (x * rect.width / GAME_SIZE[0])
-        act_y = sy + (y * rect.height / GAME_SIZE[1])
+        act_x = sx + (x * rect.width / BASE_RES[0])
+        act_y = sy + (y * rect.height / BASE_RES[1])
 
         return act_x, act_y
 
+    @staticmethod
     def render_multiple_lines(text, surface, right_margin, pos, color, font):
         rect = surface.get_rect()
         bound = rect.right - right_margin

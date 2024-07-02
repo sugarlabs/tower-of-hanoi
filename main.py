@@ -39,7 +39,7 @@ from utils import Utils
 from gettext import gettext as _
 
 FPS = 30
-GAME_SIZE = 640, 360
+BASE_RES = 640, 360
 
 class TowerOfHanoi:
     def __init__(self):
@@ -57,15 +57,15 @@ class TowerOfHanoi:
                              (0, part2, self.render_screen.get_width(),self. render_screen.get_height()))
 
     def run(self):
-        self.screen = pygame.Surface(GAME_SIZE)
+        self.screen = pygame.Surface(BASE_RES)
         self.render_screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         screen_width = self.render_screen.get_width()
         screen_height = self.render_screen.get_height()
-        x_ratio = screen_width / GAME_SIZE[0]
-        y_ratio = screen_height / GAME_SIZE[1]
+        x_ratio = screen_width / BASE_RES[0]
+        y_ratio = screen_height / BASE_RES[1]
         self.scale = min(x_ratio, y_ratio)
-        act_sw = GAME_SIZE[0] * self.scale
-        act_sh = GAME_SIZE[1] * self.scale        
+        act_sw = BASE_RES[0] * self.scale
+        act_sh = BASE_RES[1] * self.scale        
         self.scaled_screen_rect = pygame.Rect(0, 0, act_sw, act_sh)
         self.scaled_screen_rect.center = (screen_width / 2, screen_height / 2)
         Utils.scaled_screen_rect = self.scaled_screen_rect
@@ -93,7 +93,7 @@ class TowerOfHanoi:
             curr_state.run()
 
             self.fill_bg()
-            scaled_screen = pygame.transform.scale(self.screen, (self.scale * GAME_SIZE[0], self.scale * GAME_SIZE[1]))
+            scaled_screen = pygame.transform.scale(self.screen, (self.scale * BASE_RES[0], self.scale * BASE_RES[1]))
             self.render_screen.blit(scaled_screen, self.scaled_screen_rect)
 
             pygame.display.update()
