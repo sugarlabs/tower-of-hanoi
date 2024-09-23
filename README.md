@@ -34,19 +34,23 @@ These dependencies need to be manually installed on Debian, Ubuntu and Fedora di
 - Install the dependencies
 
 - Clone the repo and run -
-```
-git clone https://github.com/vaibhav-sangwan/tower-of-hanoi.git
-cd tower-of-hanoi
-python main.py
-```
+  ```
+  git clone https://github.com/sugarlabs/tower-of-hanoi.git
+  cd tower-of-hanoi
+  python main.py
+  ```
 
 **Running inside Sugar**
 
 - Open Terminal activity and change to the Tower Of Hanoi activity directory
-```
-cd activities\TowerOfHanoi.activity
-```
-- To run
-```
-sugar-activity3 .
-```
+  ```
+  cd ~/Activities/
+  git clone https://github.com/sugarlabs/tower-of-hanoi.git
+  cd tower-of-hanoi
+  ```
+- Then run from the terminal using
+
+  ```
+  sugar-activity3
+  ```
+  or reboot and run simply by clicking the icons on Sugar desktop homescreen
